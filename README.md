@@ -1,5 +1,5 @@
 # pptree
-Python tree pretty-print
+Python tree pretty-print.
 
 ### Import
 ```python
