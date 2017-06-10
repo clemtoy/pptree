@@ -53,25 +53,3 @@ def print_tree(current_node, childattr='children', nameattr='name', indent='', l
         next_last = 'down' if down.index(child) is len(down) - 1 else ''
         next_indent = '{0}{1}{2}'.format(indent, ' ' if 'down' in last else '│', ' ' * len(name(current_node)))
         print_tree(child, childattr, nameattr, next_indent, next_last)
-
-class Employee:
-
-    def __init__(self, fullname, function, head=None):
-        self.team = []
-        self.fullname = fullname
-        self.function = function
-        if head:
-            head.team.append(self)
-
-    def __str__(self):
-        return self.function
-
-if __name__ == "__main__":
-    jean = Employee("Jean Dupont", "CEO")
-    isabelle = Employee("Isabelle Leblanc", "Sales", jean)
-    enzo = Employee("Enzo Riviera", "Technology", jean)
-    lola = Employee("Lola Monet", "RH", jean)
-    kevin = Employee("Kevin Perez", "Developer", enzo)
-    lydia = Employee("Lydia Petit", "Tester", enzo)
-
-    print_tree(jean, "team", "fullname")
