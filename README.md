@@ -106,3 +106,64 @@ lydia = Employee("Lydia Petit", "Tester", enzo)
             └Enzo Riviera┤
                          └Lydia Petit
 ```
+
+## Using simple binary tree realisation
+
+### The Node class
+```python
+def __init__(self, value=None):
+    self.value = value
+    self.left = None
+    self.right = None
+```
+- the value of the node
+```python
+def add(node, value):
+```
+- add new value to the node
+
+So you can build binary tree from the root node
+
+### The pretty-print function
+```python
+print_tree(current_node, nameattr='value', left_child='left', right_child='right')
+```
+
+- the root node object
+- the name of the field containing the text to display. If `nameattr` is not filled and the custom node don't have any `value` field, then the `str` function is used.  *(optional)*
+- the left child attribute name
+- the right child attribute name
+
+print_tree recursively prints current_node.left and current_node.right elements, so you need to call it only with root node, like
+```python
+>>> print_tree(root_node, nameattr='value')
+```
+
+### Example
+```python
+from ppbtree import *
+from random import randint
+
+root = Node()
+    for _ in range(15):
+        add(root, randint(10, 99))
+```
+
+```python
+>>> print_tree(root, nameattr='value')
+      ┌11
+   ┌25┤
+   |  └30┐
+   |     └40
+ 46┤
+   |     ┌48
+   |  ┌48┘
+   └51┤
+      |        ┌52
+      |     ┌55┤
+      |     |  └74
+      |  ┌83┤
+      |  |  └87┐
+      |  |     └89
+      └90┘
+```
