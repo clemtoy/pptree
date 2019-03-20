@@ -91,18 +91,18 @@ lydia = Employee("Lydia Petit", "Tester", enzo)
 >>> print_tree(jean, "team")
 
     ┌Sales
-    ├RH
  CEO┤
     │          ┌Developer
-    └Technology┤
-               └Tester
+    ├Technology┤
+    │          └Tester
+    └RH
 
 >>> print_tree(jean, "team", "fullname")
 
             ┌Isabelle Leblanc
-            ├Lola Monet
  Jean Dupont┤
             │            ┌Kevin Perez
-            └Enzo Riviera┤
-                         └Lydia Petit
+            ├Enzo Riviera┤
+            │            └Lydia Petit
+            └Lola Monet
 ```

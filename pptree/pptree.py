@@ -25,10 +25,12 @@ def print_tree(current_node, childattr='children', nameattr='name', indent='', l
     size_branch = {child: nb_children(child) for child in children(current_node)}
 
     """ Creation of balanced lists for "up" branch and "down" branch. """
-    up = sorted(children(current_node), key=lambda node: nb_children(node))
+    up = children(current_node)
     down = []
     while up and sum(size_branch[node] for node in down) < sum(size_branch[node] for node in up):
         down.append(up.pop())
+
+    down.reverse()
 
     """ Printing of "up" branch. """
     for child in up:     
