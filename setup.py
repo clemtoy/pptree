@@ -1,7 +1,7 @@
 from distutils.core import setup
 setup(
   name = 'pptree',
-  packages = ['pptree'],
+  packages = ['pptree', 'ppbtree'],
   version = '2.0',
   description = 'Pretty print trees',
   author = 'Clement Michard',
