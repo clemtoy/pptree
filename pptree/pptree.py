@@ -50,7 +50,7 @@ def print_tree_horizontally(current_node, balanced_branches, name_getter, indent
 
     """ Printing of "up" branch. """
     for child in up:     
-        next_last = 'up' if up.index(child) is 0 else ''
+        next_last = 'up' if up.index(child) == 0 else ''
         next_indent = '{0}{1}{2}'.format(indent, ' ' if 'up' in last else '│', ' ' * len(name_getter(current_node)))
         print_tree_horizontally(child, balanced_branches, name_getter, next_indent, next_last)
 
@@ -100,5 +100,5 @@ def tree_repr(current_node, balanced_branches, name, children):
     return multijoin([[current_name, *children_repr]])
 
 
-def print_tree_vertically(current_node, balanced_branches, name, children):
-    print('\n'.join(tree_repr(current_node, balanced_branches, name, children)))
+def print_tree_vertically(*args):
+    print('\n'.join(tree_repr(*args)))
