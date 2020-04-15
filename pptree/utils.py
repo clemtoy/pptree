@@ -8,9 +8,12 @@ from itertools import chain, zip_longest, repeat
 JOINER_WIDTH = 3
 DEFAULT_JOINER = ' ' * JOINER_WIDTH
 CONNECTION_JOINER = '─' * JOINER_WIDTH
-L_BRANCH_JOINER = '─┘ '
-LR_BRANCH_JOINER = '─┴─'
-R_BRANCH_JOINER = ' └─'
+L_BRANCH_CONNECTOR = '─┘ '
+LR_BRANCH_CONNECTOR = '─┴─'
+R_BRANCH_CONNECTOR = ' └─'
+L_NODE_CONNECTOR = '─┐ '
+LR_NODE_CONNECTOR = '─┬─'
+R_NODE_CONNECTOR= ' ┌─'
 
 
 def multijoin(blocks, joiners=()):
@@ -43,14 +46,18 @@ def multijoin(blocks, joiners=()):
 
 
 def wire(block, connector):
-    left_c = ' ' if connector == '┌' else '─'
-    right_c = ' ' if connector == '┐' else '─'
+    left_c = ' ' if connector == R_NODE_CONNECTOR else '─'
+    right_c = ' ' if connector == L_NODE_CONNECTOR else '─'
 
-    length = len(block[0])
+    block, (left, right) = block
 
-    length -= 1  # connector
-    left = length // 2
-    right = length - left
+    if not (left or right):
+        length = len(block[0])  # len of first line
+
+
+        length -= 1             # ignore connector
+        left = length // 2
+        right = length - left
 
     return multijoin([[
         f'{left_c * left}{connector}{right_c * right}',
@@ -59,7 +66,7 @@ def wire(block, connector):
 
 
 def branch(blocks):
-    wired_blocks = tuple(map(lambda blk: wire(blk, '┬'), blocks))
+    wired_blocks = tuple(map(lambda blk: wire(blk, LR_NODE_CONNECTOR), blocks))
 
     return multijoin(wired_blocks, (CONNECTION_JOINER,))
 
@@ -67,7 +74,7 @@ def branch(blocks):
 def branch_left(blocks):
     last, *rest = blocks
 
-    last = wire(last, '┌')
+    last = wire(last, R_NODE_CONNECTOR)
     rest = branch(rest)
 
     return multijoin([last, rest], (CONNECTION_JOINER,))
@@ -77,13 +84,13 @@ def branch_right(blocks):
     *rest, last = blocks
 
     rest = branch(rest)
-    last = wire(last, '┐')
+    last = wire(last, L_NODE_CONNECTOR)
 
     return multijoin([rest, last], (CONNECTION_JOINER,))
 
 
 def connect_branches(left, right):
-    joiner = (LR_BRANCH_JOINER if right else L_BRANCH_JOINER) if left else R_BRANCH_JOINER
+    joiner = (LR_BRANCH_CONNECTOR if right else L_BRANCH_CONNECTOR) if left else R_BRANCH_CONNECTOR
 
     return multijoin([left, right], (joiner,))
 
