@@ -92,14 +92,13 @@ def tree_repr(current_node, balanced_branches, name, children):
     )
 
     current_name = name(current_node)
-    name_center = len(current_name) // 2
-    left_fill = blocklen(left) - name_center
+    left_fill = blocklen(left) - len(current_name) // 2 + bool(children(current_node))
     right_fill = blocklen(children_repr) - left_fill - len(current_name)
 
     current_name = left_fill * ' ' + current_name + right_fill * ' '
 
-    return multijoin([[current_name, *children_repr]]), (left_fill + name_center, right_fill - name_center)
+    return multijoin([[current_name, *children_repr]])
 
 
 def print_tree_vertically(*args):
-    print('\n'.join(tree_repr(*args)[0]))
+    print('\n'.join(tree_repr(*args)))
