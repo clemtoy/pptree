@@ -24,12 +24,13 @@ __init__(self, name, parent=None)
 
 #### The pretty-print function
 ```python
-print_tree(current_node, childattr='children', nameattr='name')
+print_tree(current_node, childattr='children', nameattr='name', horizontal=True)
 ```
 
 - the root node object
 - the name of the list containing the children *(optional)*
 - the name of the field containing the text to display. If `nameattr` is not filled and the custom node don't have any `name` field, then the `str` function is used.  *(optional)*
+- whether to print the tree horizontally or vertically *(optional)*
 
 ### Example using provided `Node` class
 ```python
@@ -105,6 +106,34 @@ lydia = Employee("Lydia Petit", "Tester", enzo)
             │            ┌Kevin Perez
             └Enzo Riviera┤
                          └Lydia Petit
+```
+
+### Example printing tree vertically
+```python
+from pptree import *
+
+shame = Node("shame")
+
+conscience = Node("conscience", shame)
+selfdisgust = Node("selfdisgust", shame)
+embarrassment = Node("embarrassment", shame)
+
+selfconsciousness = Node("selfconsciousness", embarrassment)
+shamefacedness = Node("shamefacedness", embarrassment)
+chagrin = Node("chagrin", embarrassment)
+discomfiture = Node("discomfiture", embarrassment)
+abashment = Node("abashment", embarrassment)
+confusion = Node("confusion", embarrassment)
+  
+print_tree(shame, horizontal=False)
+```
+Output:
+```
+                       shame                                                                                     
+    ┌─────────────┬──────┴─────────────────────────────────────────────┐                                         
+conscience   selfdisgust                                             embarrassment                               
+                                      ┌─────────────────┬─────────────┬────┴─────┬───────────┬────────────┐      
+                              selfconsciousness   shamefacedness   chagrin   confusion   abashment   discomfiture
 ```
 
 ## Using simple binary tree realisation
