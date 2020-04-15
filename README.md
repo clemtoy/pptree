@@ -91,20 +91,20 @@ lydia = Employee("Lydia Petit", "Tester", enzo)
 >>> print_tree(jean, "team")
 
     ┌Sales
+    ├RH
  CEO┤
     │          ┌Developer
-    ├Technology┤
-    │          └Tester
-    └RH
+    └Technology┤
+               └Tester
 
 >>> print_tree(jean, "team", "fullname")
 
             ┌Isabelle Leblanc
+            ├Lola Monet
  Jean Dupont┤
             │            ┌Kevin Perez
-            ├Enzo Riviera┤
-            │            └Lydia Petit
-            └Lola Monet
+            └Enzo Riviera┤
+                         └Lydia Petit
 ```
 
 ## Using simple binary tree realisation
