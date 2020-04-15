@@ -5,12 +5,12 @@ Ettore Forigo (c) 2020
 
 from itertools import chain, zip_longest, repeat
 
-JOINER_WIDTH = 3
+JOINER_WIDTH = 1
 DEFAULT_JOINER = ' ' * JOINER_WIDTH
 CONNECTION_JOINER = '─' * JOINER_WIDTH
-L_BRANCH_JOINER = '─┘ '
-LR_BRANCH_JOINER = '─┴─'
-R_BRANCH_JOINER = ' └─'
+L_BRANCH_JOINER = '┘'
+LR_BRANCH_JOINER = '┴'
+R_BRANCH_JOINER = '└'
 
 
 def multijoin(blocks, joiners=()):
@@ -43,14 +43,10 @@ def multijoin(blocks, joiners=()):
 
 
 def wire(block, connector):
+    block, (left, right) = block
+
     left_c = ' ' if connector == '┌' else '─'
     right_c = ' ' if connector == '┐' else '─'
-
-    length = len(block[0])
-
-    length -= 1  # connector
-    left = length // 2
-    right = length - left
 
     return multijoin([[
         f'{left_c * left}{connector}{right_c * right}',
