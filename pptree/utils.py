@@ -3,7 +3,7 @@
 Ettore Forigo (c) 2020
 """
 
-from itertools import zip_longest
+from itertools import chain, zip_longest, repeat
 
 JOINER_WIDTH = 3
 DEFAULT_JOINER = ' ' * JOINER_WIDTH
@@ -13,13 +13,12 @@ LR_BRANCH_JOINER = '─┴─'
 R_BRANCH_JOINER = ' └─'
 
 
-def multijoin(blocks, joiners=(), default_joiner=DEFAULT_JOINER):
+def multijoin(blocks, joiners=()):
     f"""
     Take one block (list of strings) or more and join them line by line with the specified joiners
 
     :param blocks: [['a', ...], ['b', ...], ...]
     :param joiners: ['─', ...]
-    :param default_joiner: {DEFAULT_JOINER}
     :return: ['a─b', ...]
     """
 
@@ -28,7 +27,7 @@ def multijoin(blocks, joiners=(), default_joiner=DEFAULT_JOINER):
 
     return tuple(
 
-        (joiner or default_joiner).join(   # use specified joiner or default (see fillvalue below)
+        joiner.join(
 
             (string or '')                 # string if present (see fillvalue below)
             .center(block_content_length)  # normalize content width across block
@@ -37,7 +36,8 @@ def multijoin(blocks, joiners=(), default_joiner=DEFAULT_JOINER):
 
         )
 
-        for *block, joiner in zip_longest(*blocks, joiners, fillvalue=None)
+        for block, joiner in zip(zip_longest(*blocks, fillvalue=None),
+                                 chain(joiners, repeat(DEFAULT_JOINER))) # joiners or default
 
     )
 
