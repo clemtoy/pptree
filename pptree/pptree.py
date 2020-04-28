@@ -33,7 +33,7 @@ def print_tree(current_node, childattr='children', nameattr='name', horizontal=T
         a = sorted(children(current_node), key=lambda node: nb_children(node))
         b = []
         while a and sum(size_branch[node] for node in b) < sum(size_branch[node] for node in a):
-            b.append(a.pop())
+            b.insert(0, a.pop())
 
         return a, b
 
