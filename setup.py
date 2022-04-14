@@ -10,4 +10,5 @@ setup(
   download_url = 'https://github.com/clemtoy/pptree/archive/3.1.tar.gz',
   keywords = ['tree', 'pretty', 'print', 'pretty-print'],
   classifiers = [],
+  license_files = ['LICENSE.txt'],
 )
